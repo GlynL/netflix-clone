@@ -8,7 +8,7 @@ const Video = ({ video }) => {
         height={250}
         src={`https://www.youtube.com/embed/${video.key}`}
         title={video.name}
-        frameborder="0"
+        frameBorder="0"
       />
     </div>
   );

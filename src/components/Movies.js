@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { fetchMovies } from "../actions";
 import { API_KEY } from "../variables";
 import MoviesList from "./MoviesList";
 
-const Movies = () => {
+const Movies = props => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
 
@@ -20,6 +22,7 @@ const Movies = () => {
 
   useEffect(() => {
     fetchMovies();
+    props.test();
   }, []);
 
   return (
@@ -31,4 +34,11 @@ const Movies = () => {
   );
 };
 
-export default Movies;
+const mapDispatchToProps = dispatch => ({
+  test: () => dispatch(fetchMovies())
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Movies);

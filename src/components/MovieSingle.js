@@ -7,7 +7,7 @@ const MovieSingle = ({ movie }) => {
 
   const fetchVideos = async id => {
     const response = await fetch(
-      `https://api.themoviedb.org/3/movie/369972?api_key=${API_KEY}&language=en-US&append_to_response=videos`
+      `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US&append_to_response=videos`
     );
     const data = await response.json();
     setVideo(data.videos.results[0]);
