@@ -1,20 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { API_KEY } from "../variables";
 import Video from "./Video";
 
 const MovieSingle = ({ movie }) => {
   const [video, setVideo] = useState(null);
+  const [active, setActive] = useState(false);
 
-  const fetchVideos = async id => {
+  const fetchVideo = async id => {
     const response = await fetch(
       `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US&append_to_response=videos`
     );
     const data = await response.json();
     setVideo(data.videos.results[0]);
+    setActive(true);
   };
 
   const handleClick = e => {
-    fetchVideos(e.currentTarget.id);
+    fetchVideo(e.currentTarget.id);
+    const handleActive = e => {
+      const target = e.target.parentNode;
+      if (target.id && Number(target.id) !== movie.id) {
+        document.removeEventListener("click", handleActive);
+        setActive(false);
+      }
+    };
+    if (active === false) document.addEventListener("click", handleActive);
   };
 
   return (
@@ -24,7 +34,7 @@ const MovieSingle = ({ movie }) => {
         alt=""
       />
       {movie.title}
-      {video && <Video video={video} />}
+      {video && active && <Video video={video} />}
     </li>
   );
 };
