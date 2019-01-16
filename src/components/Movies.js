@@ -11,6 +11,7 @@ const Movies = () => {
       const response = await fetch(
         `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`
       );
+      if (!response.ok) throw new Error();
       const data = await response.json();
       setMovies(data.results);
     } catch (err) {

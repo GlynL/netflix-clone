@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Wrapper = styled.div`
-  padding: 3rem;
+  padding: 3rem 0.5rem;
   background: #333;
 `;
 
@@ -16,7 +16,6 @@ const MoviesList = ({ movies }) => {
 
   const list = movies.map(movie => <MovieSingle movie={movie} />);
   var settings = {
-    dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 4,
@@ -28,8 +27,7 @@ const MoviesList = ({ movies }) => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          infinite: true,
-          dots: true
+          infinite: true
         }
       },
       {

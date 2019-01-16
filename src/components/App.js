@@ -1,10 +1,11 @@
 import React from "react";
 import Movies from "./Movies";
+import Header from "./Header";
 
 const App = () => {
   return (
     <div className="App">
-      <h1>Netflix</h1>
+      <Header />
       <Movies />
     </div>
   );
