@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import { API_KEY } from "../variables";
 import Video from "./Video";
+
+const Image = styled.img`
+  margin: 0 auto;
+`;
 
 const MovieSingle = ({ movie }) => {
   const [video, setVideo] = useState(null);
@@ -29,7 +34,7 @@ const MovieSingle = ({ movie }) => {
 
   return (
     <div key={movie.id} id={movie.id} onClick={handleClick}>
-      <img
+      <Image
         src={`https://image.tmdb.org/t/p/w300${movie.backdrop_path}`}
         alt=""
       />

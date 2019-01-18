@@ -7,11 +7,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const Wrapper = styled.div`
-  padding: 3rem 0.5rem;
+  padding: 3rem 4rem;
   background: #333;
 `;
 
-const MoviesList = ({ movies }) => {
+const MoviesList = ({ movies, genre }) => {
   if (movies.length === 0) return <div>loading...</div>;
 
   const list = movies.map(movie => <MovieSingle movie={movie} />);
@@ -48,9 +48,12 @@ const MoviesList = ({ movies }) => {
     ]
   };
   return (
-    <Wrapper>
-      <Slider {...settings}>{list}</Slider>
-    </Wrapper>
+    <section>
+      <h2>{genre}</h2>
+      <Wrapper>
+        <Slider {...settings}>{list}</Slider>
+      </Wrapper>
+    </section>
   );
 };
 

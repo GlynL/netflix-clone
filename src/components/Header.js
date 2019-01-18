@@ -67,7 +67,7 @@ const Header = () => {
               <FontAwesomeIcon icon={faUsers} />
               <FontAwesomeIcon
                 icon={faSortDown}
-                style={{ "padding-left": "1rem" }}
+                style={{ paddingLeft: "1rem" }}
               />
             </Link>
           </div>

@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { API_KEY } from "../variables";
+import { API_KEY, genres } from "../variables";
+
+import Genres from "./Genres";
 import MoviesList from "./MoviesList";
+
+// add in duplicate check
+const randomGenres = (number = 5) => {
+  let randomised = [];
+  for (let i = 0; i < number; i++) {
+    const rnd = Math.floor(Math.random() * genres.length);
+    randomised.push(genres[rnd]);
+  }
+  return randomised;
+};
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
+  const [genres, setGenres] = useState([]);
 
   const fetchMovies = async () => {
     try {
@@ -19,15 +32,21 @@ const Movies = () => {
     }
   };
 
+  const generateRandomGenres = (number = 5) => {
+    setGenres(randomGenres(number));
+  };
+
   useEffect(() => {
     fetchMovies();
+    generateRandomGenres(2);
   }, []);
 
+  if (movies.lenght === 0 || genres.length === 0) return "loading";
   return (
     <div>
-      <h2>Trending Now</h2>
       {error && <div>{error}</div>}
-      <MoviesList movies={movies} />
+      <MoviesList movies={movies} genre={"Trending Now"} />
+      <Genres genres={genres} />
     </div>
   );
 };
