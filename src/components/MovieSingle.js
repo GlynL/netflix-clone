@@ -34,11 +34,11 @@ const MovieSingle = ({ movie }) => {
 
   return (
     <div key={movie.id} id={movie.id} onClick={handleClick}>
+      {movie.title}
       <Image
         src={`https://image.tmdb.org/t/p/w300${movie.backdrop_path}`}
         alt=""
       />
-      {movie.title}
       {video && active && <Video video={video} />}
     </div>
   );

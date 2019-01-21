@@ -8,7 +8,6 @@ import "slick-carousel/slick/slick-theme.css";
 
 const Wrapper = styled.div`
   padding: 3rem 4rem;
-  background: #333;
 `;
 
 const MoviesList = ({ movies, genre }) => {
@@ -18,8 +17,8 @@ const MoviesList = ({ movies, genre }) => {
   var settings = {
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToShow: 5,
+    slidesToScroll: 5,
     initialSlide: 0,
     responsive: [
       {
