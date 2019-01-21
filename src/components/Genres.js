@@ -22,7 +22,7 @@ const Genres = ({ genres }) => {
       const data = await response.json();
       return data;
     } catch (err) {
-      setError("Error fetching data. Please refresh and try again.");
+      return Promise.reject();
     }
   };
 
@@ -64,10 +64,11 @@ const Genres = ({ genres }) => {
     </li>
   ));
 
+  if (error) return <div>{error}</div>;
+
   if (popGenres.length === 0) return "genres loading";
   return (
     <section>
-      {error && <div>{error}</div>}
       <List>{list}</List>
     </section>
   );
