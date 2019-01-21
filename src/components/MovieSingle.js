@@ -3,6 +3,10 @@ import styled from "styled-components";
 import { API_KEY } from "../variables";
 import Video from "./Video";
 
+const Container = styled.div`
+  margin: 0 0.5rem;
+`;
+
 const Image = styled.img`
   margin: 0 auto;
 `;
@@ -33,14 +37,14 @@ const MovieSingle = ({ movie }) => {
   };
 
   return (
-    <div key={movie.id} id={movie.id} onClick={handleClick}>
+    <Container id={movie.id} onClick={handleClick}>
       {movie.title}
       <Image
         src={`https://image.tmdb.org/t/p/w300${movie.backdrop_path}`}
         alt=""
       />
       {video && active && <Video video={video} />}
-    </div>
+    </Container>
   );
 };
 

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import MoviesList from "./MoviesList";
 import { API_KEY } from "../variables.js";
-import { reject } from "q";
 
 const List = styled.ul`
   list-style: none;
