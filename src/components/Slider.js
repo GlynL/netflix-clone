@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
@@ -23,52 +23,60 @@ const ArrowRight = styled(Arrow)`
   right: 1rem;
 `;
 
+function reducer(state, action) {
+  switch (action.type) {
+    case "increase":
+      return { start: state.start + 1, end: state.end + 1 };
+    case "decrease":
+      return { start: state.start - 1, end: state.end - 1 };
+    default:
+      return state;
+  }
+}
+
 const Slider = ({ movies }) => {
+  const [state, dispatch] = useReducer(reducer, { start: 0, end: 5 });
+
   const [display, setDisplay] = useState([]);
-  const [end, setEnd] = useState(5);
-  const [start, setStart] = useState(0);
   const [prevDisabled, setPrevDisabled] = useState(true);
   const [nextDisabled, setNextDisabled] = useState(false);
 
-  useEffect(() => {
-    setDisplay(movies.slice(start, end));
-  }, []);
+  useEffect(
+    () => {
+      if (state.end === movies.length) setNextDisabled(true);
+      if (nextDisabled && state.end !== movies.length) setNextDisabled(false);
+    },
+    [state.end]
+  );
 
-  const handleNext = () => {
-    // adjust start/end slides
-    const newEnd = end + 1;
-    const newStart = start + 1;
-    setEnd(newEnd);
-    setStart(newStart);
-    // check if prev button disabled - enable if true
-    if (prevDisabled) setPrevDisabled(false);
-    // disable next button if last movie shown
-    if (newEnd === movies.length) setNextDisabled(true);
-    // display next movies
-    setDisplay(movies.slice(newStart, newEnd));
-  };
+  useEffect(
+    () => {
+      if (state.start === 0) setPrevDisabled(true);
+      if (prevDisabled === true && state.start !== 0) setPrevDisabled(false);
+    },
+    [state.start]
+  );
 
-  const handlePrev = () => {
-    // adjust start/end slides
-    const newEnd = end - 1;
-    const newStart = start - 1;
-    setEnd(newEnd);
-    setStart(newStart);
-    // check if next button disabled - enable if true
-    if (nextDisabled) setNextDisabled(false);
-    // disable prev button if firstm movie shown
-    if (newStart === 0) setPrevDisabled(true);
-    // display movies
-    setDisplay(movies.slice(newStart, newEnd));
-  };
+  useEffect(
+    () => {
+      setDisplay(movies.slice(state.start, state.end));
+    },
+    [state]
+  );
 
   return (
     <Row>
-      <ArrowLeft onClick={handlePrev} disabled={prevDisabled}>
+      <ArrowLeft
+        onClick={() => dispatch({ type: "decrease" })}
+        disabled={prevDisabled}
+      >
         <FontAwesomeIcon icon={faAngleLeft} />
       </ArrowLeft>
       {display}
-      <ArrowRight onClick={handleNext} disabled={nextDisabled}>
+      <ArrowRight
+        onClick={() => dispatch({ type: "increase" })}
+        disabled={nextDisabled}
+      >
         <FontAwesomeIcon icon={faAngleRight} />
       </ArrowRight>
     </Row>
