@@ -7,6 +7,7 @@ const Row = styled.ul`
   list-style: none;
   padding: 0;
   display: flex;
+  align-items: center;
   overflow: hidden;
 `;
 
@@ -23,6 +24,7 @@ const ArrowRight = styled(Arrow)`
   right: 1rem;
 `;
 
+// increase or decrease state
 function reducer(state, action) {
   switch (action.type) {
     case "increase":
@@ -41,6 +43,7 @@ const Slider = ({ movies }) => {
   const [prevDisabled, setPrevDisabled] = useState(true);
   const [nextDisabled, setNextDisabled] = useState(false);
 
+  // toggle nextButton disabled based on state.end
   useEffect(
     () => {
       if (state.end === movies.length) setNextDisabled(true);
@@ -49,6 +52,7 @@ const Slider = ({ movies }) => {
     [state.end]
   );
 
+  // toggle prev button disbaled based on state.start
   useEffect(
     () => {
       if (state.start === 0) setPrevDisabled(true);
@@ -57,6 +61,7 @@ const Slider = ({ movies }) => {
     [state.start]
   );
 
+  // set display of movies when state changes
   useEffect(
     () => {
       setDisplay(movies.slice(state.start, state.end));
@@ -64,19 +69,16 @@ const Slider = ({ movies }) => {
     [state]
   );
 
+  // dispatch next/prev state change
+  const handleClick = e => dispatch({ type: e.currentTarget.name });
+
   return (
     <Row>
-      <ArrowLeft
-        onClick={() => dispatch({ type: "decrease" })}
-        disabled={prevDisabled}
-      >
+      <ArrowLeft name="decrease" onClick={handleClick} disabled={prevDisabled}>
         <FontAwesomeIcon icon={faAngleLeft} />
       </ArrowLeft>
       {display}
-      <ArrowRight
-        onClick={() => dispatch({ type: "increase" })}
-        disabled={nextDisabled}
-      >
+      <ArrowRight name="increase" onClick={handleClick} disabled={nextDisabled}>
         <FontAwesomeIcon icon={faAngleRight} />
       </ArrowRight>
     </Row>

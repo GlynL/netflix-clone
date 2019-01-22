@@ -4,11 +4,16 @@ import { API_KEY } from "../variables";
 import Video from "./Video";
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin: 0 0.5rem;
+  height: 300px;
 `;
 
 const Image = styled.img`
   margin: 0 auto;
+  cursor: pointer;
 `;
 
 const MovieSingle = ({ movie }) => {
@@ -25,10 +30,14 @@ const MovieSingle = ({ movie }) => {
   };
 
   const handleClick = e => {
+    // return if click is outside image
+    if (!e.target.parentNode.classList.contains("movie-item")) return;
+    // load video
     fetchVideo(e.currentTarget.id);
+    // click listener to remove video when clicked elsewhere
     const handleActive = e => {
       const target = e.target.parentNode;
-      if (target.id && Number(target.id) !== movie.id) {
+      if (!target.id || Number(target.id) !== movie.id) {
         document.removeEventListener("click", handleActive);
         setActive(false);
       }
@@ -37,12 +46,14 @@ const MovieSingle = ({ movie }) => {
   };
 
   return (
-    <Container id={movie.id} onClick={handleClick}>
+    <Container id={movie.id} className="movie-item" onClick={handleClick}>
       {movie.title}
-      <Image
-        src={`https://image.tmdb.org/t/p/w300${movie.backdrop_path}`}
-        alt=""
-      />
+      {!active && (
+        <Image
+          src={`https://image.tmdb.org/t/p/w300${movie.backdrop_path}`}
+          alt=""
+        />
+      )}
       {video && active && <Video video={video} />}
     </Container>
   );
