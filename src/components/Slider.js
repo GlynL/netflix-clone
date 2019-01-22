@@ -12,16 +12,25 @@ const Row = styled.ul`
 `;
 
 const Arrow = styled.button`
-  align-self: center;
   position: absolute;
+  cursor:pointer;
+  height: 180px
+  font-size: 2rem;
+  border:none;
+  color: #fff;
+  background: rgba(0,0,0,0.5);
+  transition: all 0.2s;
+  &:hover {
+    font-size: 4rem;
+  }
 `;
 
 const ArrowLeft = styled(Arrow)`
-  left: 1rem;
+  left: 0;
 `;
 
 const ArrowRight = styled(Arrow)`
-  right: 1rem;
+  right: 0;
 `;
 
 // increase or decrease state

@@ -19,6 +19,8 @@ const Link = styled.a`
   align-items: center;
   cursor: pointer;
 
+  transition: all 0.2s;
+
   &:active,
   &:focus,
   &:hover {
