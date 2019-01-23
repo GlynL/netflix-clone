@@ -23,6 +23,7 @@ const Arrow = styled.button`
   border:none;
   outline: none;
   background: rgba(0,0,0,0.5);
+  z-index: 1;
   
   transition: all 0.2s;
 
@@ -53,7 +54,7 @@ function reducer(state, action) {
 
 const Slider = ({ movies }) => {
   const [state, dispatch] = useReducer(reducer, { start: 0, end: 5 });
-
+  const [translate, setTranslate] = useState(300);
   const [display, setDisplay] = useState([]);
   const [prevDisabled, setPrevDisabled] = useState(true);
   const [nextDisabled, setNextDisabled] = useState(false);
@@ -85,7 +86,11 @@ const Slider = ({ movies }) => {
   );
 
   // dispatch next/prev state change
-  const handleClick = e => dispatch({ type: e.currentTarget.name });
+  const handleClick = e => {
+    const translateAmt = e.currentTarget.name === "increase" ? 300 : -300;
+    setTranslate(translateAmt);
+    dispatch({ type: e.currentTarget.name });
+  };
 
   return (
     <Row>
@@ -95,18 +100,14 @@ const Slider = ({ movies }) => {
       <Transition
         items={display}
         keys={item => item.key}
-        from={{ opacity: 0, transform: "translateX(300px)" }}
+        from={{ opacity: 0, transform: `translateX(${translate}px)` }}
         enter={{ opacity: 1, transform: "translateX(0px)" }}
-        update={[
-          { transform: "translateX(-300px)" },
-          { transform: "translateX(0)" }
-        ]}
-        leave={
-          {
-            /* opacity: 0,
-          transform: "translateX(-300px)" */
-          }
-        }
+        // update={}
+        leave={{}}
+        // leave={{
+        //   opacity: 0,
+        //   transform: "translateX(-300px)"
+        // }}
       >
         {item => props => <div style={props}>{item}</div>}
       </Transition>
