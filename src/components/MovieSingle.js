@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { API_KEY } from "../variables";
 import Video from "./Video";
+import { Spring } from "react-spring";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 0 0.5rem;
-  height: 300px;
+  height: 250px;
 `;
 
 const Image = styled.img`

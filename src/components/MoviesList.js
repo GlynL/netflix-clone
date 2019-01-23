@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import MovieSingle from "./MovieSingle";
 import Slider from "./Slider";
 
