@@ -12,15 +12,19 @@ const Row = styled.ul`
 `;
 
 const Arrow = styled.button`
+  display: ${props => props.disabled && "none"};
+
   position: absolute;
   cursor:pointer;
+  color: #fff;
   height: 180px
   font-size: 2rem;
   border:none;
-  color: #fff;
   background: rgba(0,0,0,0.5);
+  
   transition: all 0.2s;
-  &:hover {
+
+  :hover {
     font-size: 4rem;
   }
 `;
