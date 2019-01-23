@@ -2,6 +2,7 @@ import React, { useState, useEffect, useReducer } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { Transition } from "react-spring";
 
 const Row = styled.ul`
   list-style: none;
@@ -17,14 +18,15 @@ const Arrow = styled.button`
   position: absolute;
   cursor:pointer;
   color: #fff;
-  height: 180px
+  height: 185px
   font-size: 2rem;
   border:none;
+  outline: none;
   background: rgba(0,0,0,0.5);
   
   transition: all 0.2s;
 
-  :hover {
+  :hover, :focus {
     font-size: 4rem;
   }
 `;
@@ -90,7 +92,24 @@ const Slider = ({ movies }) => {
       <ArrowLeft name="decrease" onClick={handleClick} disabled={prevDisabled}>
         <FontAwesomeIcon icon={faAngleLeft} />
       </ArrowLeft>
-      {display}
+      <Transition
+        items={display}
+        keys={item => item.key}
+        from={{ opacity: 0, transform: "translateX(300px)" }}
+        enter={{ opacity: 1, transform: "translateX(0px)" }}
+        update={[
+          { transform: "translateX(-300px)" },
+          { transform: "translateX(0)" }
+        ]}
+        leave={
+          {
+            /* opacity: 0,
+          transform: "translateX(-300px)" */
+          }
+        }
+      >
+        {item => props => <div style={props}>{item}</div>}
+      </Transition>
       <ArrowRight name="increase" onClick={handleClick} disabled={nextDisabled}>
         <FontAwesomeIcon icon={faAngleRight} />
       </ArrowRight>

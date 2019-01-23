@@ -6,6 +6,8 @@ import {
   faUsers,
   faSortDown
 } from "@fortawesome/free-solid-svg-icons";
+import { Transition } from "react-spring";
+import { useTransition, animated } from "react-spring/hooks";
 
 import styled from "styled-components";
 
@@ -45,37 +47,54 @@ const Container = styled.div`
 `;
 
 const Header = () => {
+  // const props = useTransition({
+  // from: { transform: "translateY(-100px)" },
+  // to: { transform: "translateY(0px)" }
+  // });
+  let show = true;
   return (
-    <section>
-      <Nav>
-        <Link href="/">
-          <Image src="/logo.jpg" alt="Netflix" />
-        </Link>
-        <Link>Home</Link>
-        <Link>TV Shows</Link>
-        <Link>Movies</Link>
-        <Link>Recently Added</Link>
-        <Link>My List</Link>
-        <Container>
-          <Link>
-            <FontAwesomeIcon icon={faSearch} />
-          </Link>
-          <Link>Kids</Link>
-          <Link>
-            <FontAwesomeIcon icon={faBell} />
-          </Link>
-          <div>
-            <Link>
-              <FontAwesomeIcon icon={faUsers} />
-              <FontAwesomeIcon
-                icon={faSortDown}
-                style={{ paddingLeft: "1rem" }}
-              />
-            </Link>
-          </div>
-        </Container>
-      </Nav>
-    </section>
+    <Transition
+      items={show}
+      from={{ transform: "translateY(-100px)" }}
+      enter={{ transform: "translateY(0px)" }}
+      leave={{ opacity: 0 }}
+    >
+      {show =>
+        show &&
+        (props => (
+          <section style={props}>
+            <Nav>
+              <Link href="/">
+                <Image src="/logo.jpg" alt="Netflix" />
+              </Link>
+              <Link>Home</Link>
+              <Link>TV Shows</Link>
+              <Link>Movies</Link>
+              <Link>Recently Added</Link>
+              <Link>My List</Link>
+              <Container>
+                <Link>
+                  <FontAwesomeIcon icon={faSearch} />
+                </Link>
+                <Link>Kids</Link>
+                <Link>
+                  <FontAwesomeIcon icon={faBell} />
+                </Link>
+                <div>
+                  <Link>
+                    <FontAwesomeIcon icon={faUsers} />
+                    <FontAwesomeIcon
+                      icon={faSortDown}
+                      style={{ paddingLeft: "1rem" }}
+                    />
+                  </Link>
+                </div>
+              </Container>
+            </Nav>
+          </section>
+        ))
+      }
+    </Transition>
   );
 };
 
