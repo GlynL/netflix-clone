@@ -6,8 +6,8 @@ import {
   faUsers,
   faSortDown
 } from "@fortawesome/free-solid-svg-icons";
-import { Transition } from "react-spring";
-import { useTransition, animated } from "react-spring/hooks";
+import { Transition, animated } from "react-spring";
+// import { useTransition, animated } from "react-spring/hooks";
 
 import styled from "styled-components";
 
@@ -62,10 +62,10 @@ const Header = () => {
       {show =>
         show &&
         (props => (
-          <section style={props}>
+          <animated.section style={props}>
             <Nav>
               <Link href="/">
-                <Image src="/logo.jpg" alt="Netflix" />
+                <Image src="/logo.png" alt="Netflix" />
               </Link>
               <Link>Home</Link>
               <Link>TV Shows</Link>
@@ -91,7 +91,7 @@ const Header = () => {
                 </div>
               </Container>
             </Nav>
-          </section>
+          </animated.section>
         ))
       }
     </Transition>

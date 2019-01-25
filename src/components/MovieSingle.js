@@ -48,7 +48,7 @@ const MovieSingle = ({ movie }) => {
 
   return (
     <Container id={movie.id} className="movie-item" onClick={handleClick}>
-      {movie.title}
+      <h3>{movie.title}</h3>
       {!active && (
         <Image
           src={`https://image.tmdb.org/t/p/w300${movie.backdrop_path}`}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Spring } from "react-spring";
+import { Spring, animated } from "react-spring";
 
 const Video = ({ video }) => {
   return (
@@ -9,7 +9,7 @@ const Video = ({ video }) => {
     >
       {props => (
         <div>
-          <iframe
+          <animated.iframe
             style={{ ...props }}
             src={`https://www.youtube.com/embed/${video.key}`}
             title={video.name}

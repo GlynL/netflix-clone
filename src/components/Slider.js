@@ -2,7 +2,7 @@ import React, { useState, useEffect, useReducer } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
-import { Transition } from "react-spring";
+import { Transition, animated } from "react-spring";
 
 const Row = styled.ul`
   list-style: none;
@@ -105,11 +105,11 @@ const Slider = ({ movies }) => {
         // update={}
         leave={{}}
         // leave={{
-        //   opacity: 0,
+        // opacity: 0,
         //   transform: "translateX(-300px)"
         // }}
       >
-        {item => props => <div style={props}>{item}</div>}
+        {item => props => <animated.div style={props}>{item}</animated.div>}
       </Transition>
       <ArrowRight name="increase" onClick={handleClick} disabled={nextDisabled}>
         <FontAwesomeIcon icon={faAngleRight} />
