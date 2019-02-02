@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { API_KEY } from "../variables";
 import Video from "./Video";
-import { Spring } from "react-spring";
 
 const Container = styled.div`
   display: flex;

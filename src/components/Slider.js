@@ -6,6 +6,7 @@ import { Transition, animated } from "react-spring";
 
 const Row = styled.ul`
   list-style: none;
+  position: relative;
   padding: 0;
   display: flex;
   align-items: center;
@@ -14,11 +15,11 @@ const Row = styled.ul`
 
 const Arrow = styled.button`
   display: ${props => props.disabled && "none"};
-
   position: absolute;
   cursor:pointer;
   color: #fff;
-  height: 185px
+  height: 180px
+  top: 55px;
   font-size: 2rem;
   border:none;
   outline: none;
@@ -58,42 +59,39 @@ const Slider = ({ movies }) => {
   const [display, setDisplay] = useState([]);
   const [prevDisabled, setPrevDisabled] = useState(true);
   const [nextDisabled, setNextDisabled] = useState(false);
+  const [justifyContent, setJustifyContent] = useState("flex-start");
 
   // toggle nextButton disabled based on state.end
-  useEffect(
-    () => {
-      if (state.end === movies.length) setNextDisabled(true);
-      if (nextDisabled && state.end !== movies.length) setNextDisabled(false);
-    },
-    [state.end]
-  );
+  useEffect(() => {
+    if (state.end === movies.length) setNextDisabled(true);
+    if (nextDisabled && state.end !== movies.length) setNextDisabled(false);
+  }, [state.end]);
 
   // toggle prev button disbaled based on state.start
-  useEffect(
-    () => {
-      if (state.start === 0) setPrevDisabled(true);
-      if (prevDisabled === true && state.start !== 0) setPrevDisabled(false);
-    },
-    [state.start]
-  );
+  useEffect(() => {
+    if (state.start === 0) setPrevDisabled(true);
+    if (prevDisabled === true && state.start !== 0) setPrevDisabled(false);
+  }, [state.start]);
 
   // set display of movies when state changes
-  useEffect(
-    () => {
-      setDisplay(movies.slice(state.start, state.end));
-    },
-    [state]
-  );
+  useEffect(() => {
+    setDisplay(movies.slice(state.start, state.end));
+  }, [state]);
 
   // dispatch next/prev state change
   const handleClick = e => {
+    setJustifyContent(
+      e.currentTarget.name === "increase" ? "flex-end" : "flex-start"
+    );
     const translateAmt = e.currentTarget.name === "increase" ? 300 : -300;
     setTranslate(translateAmt);
-    dispatch({ type: e.currentTarget.name });
+    dispatch({
+      type: e.currentTarget.name
+    });
   };
 
   return (
-    <Row>
+    <Row style={{ justifyContent: justifyContent }}>
       <ArrowLeft name="decrease" onClick={handleClick} disabled={prevDisabled}>
         <FontAwesomeIcon icon={faAngleLeft} />
       </ArrowLeft>
