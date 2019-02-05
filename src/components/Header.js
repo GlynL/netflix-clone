@@ -65,7 +65,10 @@ const Header = () => {
           <animated.section style={props}>
             <Nav>
               <Link href="/">
-                <Image src="/logo.png" alt="Netflix" />
+                <Image
+                  src={`${process.env.PUBLIC_URL}/logo.png`}
+                  alt="Netflix"
+                />
               </Link>
               <Link>Home</Link>
               <Link>TV Shows</Link>
