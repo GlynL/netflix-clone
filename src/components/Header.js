@@ -7,7 +7,6 @@ import {
   faSortDown
 } from "@fortawesome/free-solid-svg-icons";
 import { Transition, animated } from "react-spring";
-// import { useTransition, animated } from "react-spring/hooks";
 
 import styled from "styled-components";
 
@@ -46,11 +45,11 @@ const Container = styled.div`
   display: flex;
 `;
 
+const Wrapper = styled(animated.section)`
+  margin-bottom: 3rem;
+`;
+
 const Header = () => {
-  // const props = useTransition({
-  // from: { transform: "translateY(-100px)" },
-  // to: { transform: "translateY(0px)" }
-  // });
   let show = true;
   return (
     <Transition
@@ -62,7 +61,7 @@ const Header = () => {
       {show =>
         show &&
         (props => (
-          <animated.section style={props}>
+          <Wrapper style={props}>
             <Nav>
               <Link href="/">
                 <Image
@@ -94,7 +93,7 @@ const Header = () => {
                 </div>
               </Container>
             </Nav>
-          </animated.section>
+          </Wrapper>
         ))
       }
     </Transition>
